@@ -7,7 +7,7 @@ Take note that I'm a web developer. This runscript installs among other software
 
 # Version
 
-16.04 Xenial.
+16.10 Yakkety.
 
 If using in a different release of Ubuntu  you will need to update 'xenial' in some repos to whatever the Ubuntu release is.
 
