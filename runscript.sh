@@ -2,14 +2,14 @@
 clear
 ###
 #
-#	Run Script 16.04
+#	Run Script 16.10
 #
 #	Lead Author: Lee Hodson
 #	Donate: paypal.me/vr51
 #	Website: https://github.com/VR51/Ubuntu-Runscript
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
-#	This Release: 4th May. 2016
+#	This Release: 15th Oct. 2016
 #
 #	Copyright 2016 Lee Hodson
 #	License: GNU
@@ -21,10 +21,11 @@ clear
 #	TO RUN:
 #
 #	- Ensure the script is executable.
-#	- Command line: sh repo-run.sh
-#	- File browser: click runscript.sh
+#	- Command line: sh runscript.sh
+#	- File browser: Make script executable, click runscript.sh
 #
 #	Use Runscript to install base repositories and software after fresh Ubuntu installation.
+#	Installs Backports, y-ppa-manager, vlc, gimp (latest), krita (latest), google-chrome-stable, webcamstudio, virtualbox-5.0, apache2, php7.0, mariadb-server, php7.0-mysql, phpmyadmin, openshot-qt, Webmin, Mod_Pagespeed
 #
 ###
 
@@ -147,7 +148,7 @@ sudo add-apt-repository ppa:kubuntu-ppa/backports
 
 ## VirtualBox
 
-sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian yakkety contrib" >> /etc/apt/sources.list.d/virtualbox.list'
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 
 ## Web Server
@@ -157,10 +158,10 @@ sudo apt-add-repository ppa:ondrej/php
 
 sudo apt-get install software-properties-common
 sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-sudo add-apt-repository 'deb [arch=amd64,i386] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu xenial main'
+sudo add-apt-repository 'deb [arch=amd64,i386] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu yakkety main'
 
-sudo sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu xenial main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-xenial.list'
-sudo sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu xenial main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-xenial.list'
+sudo sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
+sudo sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
 
 
 ## PhpMyAdmin
