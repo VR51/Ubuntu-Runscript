@@ -2,19 +2,19 @@
 clear
 ###
 #
-#	Run Script 16.10
+#	Run Script 16.10 64-bit
 #
 #	Lead Author: Lee Hodson
 #	Donate: paypal.me/vr51
 #	Website: https://github.com/VR51/Ubuntu-Runscript
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
-#	This Release: 15th Oct. 2016
+#	This Release: 25th Oct. 2016
 #
 #	Copyright 2016 Lee Hodson
 #	License: GNU
 #
-#	Programmer: Lee Hodson <journalxtra.com>, Lee Hodson <vr51.com>
+#	Author: Lee Hodson <https://journalxtra.com>, Lee Hodson <https://vr51.com>
 #
 #	Use of this program is at your own risk
 #
@@ -24,7 +24,8 @@ clear
 #	- Command line: sh runscript.sh
 #	- File browser: Make script executable, click runscript.sh
 #
-#	Use Runscript to install base repositories and software after fresh Ubuntu installation.
+#	Use Runscript to install base repositories and software after fresh Ubuntu 16.10 or Kubuntu 16.10 installation.
+#	This is for 64 bit systems.
 #	Installs Backports, y-ppa-manager, vlc, gimp (latest), krita (latest), google-chrome-stable, webcamstudio, virtualbox-5.0, apache2, php7.0, mariadb-server, php7.0-mysql, phpmyadmin, openshot-qt, Webmin, Mod_Pagespeed
 #
 ###
@@ -157,7 +158,7 @@ sudo apt-add-repository ppa:ondrej/apache2
 sudo apt-add-repository ppa:ondrej/php
 
 sudo apt-get install software-properties-common
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 sudo add-apt-repository 'deb [arch=amd64,i386] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu yakkety main'
 
 sudo sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
@@ -239,8 +240,8 @@ sudo apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-r
 
 ## Install Webmin
 # PPA is still on 'sarge' so we download and install the .deb package. Update from within Webmin.
-wget http://prdownloads.sourceforge.net/webadmin/webmin_1.791_all.deb
-sudo dpkg --install webmin_1.791_all.deb
+wget http://prdownloads.sourceforge.net/webadmin/webmin_1.820_all.deb
+sudo dpkg --install webmin_1.820_all.deb
 
 
 ## Mod_Pagespeed
