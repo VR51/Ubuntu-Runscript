@@ -227,7 +227,8 @@ sudo apt-get install gimp
 sudo apt-get install krita
 sudo apt-get install google-chrome-stable
 sudo apt-get install webcamstudio
-sudo apt-get install virtualbox-5.0
+sudo apt-get install virtualbox-5.1
+sudo apt-get install dkms
 sudo apt-get install apache2
 sudo apt-get install php7.0
 sudo apt-get install mariadb-server
