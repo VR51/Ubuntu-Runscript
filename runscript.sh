@@ -9,7 +9,7 @@ clear
 #	Website: https://github.com/VR51/Ubuntu-Runscript
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
-#	This Release: 25th Oct. 2016
+#	This Release: 14th Jan. 2017
 #
 #	Copyright 2016 Lee Hodson
 #	License: GNU
@@ -25,8 +25,12 @@ clear
 #	- File browser: Make script executable, click runscript.sh
 #
 #	Use Runscript to install base repositories and software after fresh Ubuntu 16.10 or Kubuntu 16.10 installation.
+#	Will work for KDE Neon but you will need to comment out Kubuntu Backports
 #	This is for 64 bit systems.
-#	Installs Backports, y-ppa-manager, vlc, gimp (latest), krita (latest), google-chrome-stable, webcamstudio, virtualbox-5.0, apache2, php7.0, mariadb-server, php7.0-mysql, phpmyadmin, openshot-qt, Webmin, Mod_Pagespeed
+#	Installs Backports, y-ppa-manager, vlc, gimp (latest), krita (latest), google-chrome-stable, webcamstudio, simplescreenrecorder, MAME, QMC2, virtualbox-5.1, apache2, php7.0, mariadb-server, php7.0-mysql, phpmyadmin, openshot-qt, Webmin, Mod_Pagespeed
+#	You will need to configure Apache modules through either terminal or Webmin after installation has completed.
+#
+#	I am a web developer and Linux script writer. This runscript installs server software as well as some tools of my trade and other packages I enjoy to use for entertainment.
 #
 ###
 
@@ -37,6 +41,7 @@ clear
 #
 #	https://www.google.com/linuxrepositories/
 #
+#	https://journalxtra.com/gaming/download-complete-sets-of-mess-and-mame-roms/
 #
 ###
 
@@ -205,6 +210,18 @@ sudo add-apt-repository ppa:openshot.developers/ppa
 
 sudo add-apt-repository ppa:webcamstudio/webcamstudio-dailybuilds
 
+## Simple Screen Recorder
+
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+
+## MAME (this is now MAME and MESS together)
+
+sudo add-apt-repository ppa:c.falco/mame
+
+## QMC2 MAME GUI/Frontend
+
+sudo add-apt-repository ppa:mmbossoni-gmail/emu
+
 ###
 #
 #	Update Everything
@@ -235,15 +252,16 @@ sudo apt-get install mariadb-server
 sudo apt-get install php7.0-mysql
 sudo apt-get install phpmyadmin
 sudo apt-get install openshot-qt
+sudo apt-get install simplescreenrecorder
 
 ## Webmin dependencies
-sudo apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 
 ## Install Webmin
 # PPA is still on 'sarge' so we download and install the .deb package. Update from within Webmin.
-wget http://prdownloads.sourceforge.net/webadmin/webmin_1.820_all.deb
-sudo dpkg --install webmin_1.820_all.deb
-
+# See http://www.webmin.com/deb.html
+wget http://prdownloads.sourceforge.net/webadmin/webmin_1.831_all.deb
+sudo dpkg --install webmin_1.831_all.deb
 
 ## Mod_Pagespeed
 
@@ -251,8 +269,9 @@ wget https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd6
 sudo dpkg -i mod-pagespeed-*.deb
 sudo apt-get -f install
 
-## Google Chrome
+## MAME and QMC2
 
+sudo apt-get install mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman
 
 ###
 #
