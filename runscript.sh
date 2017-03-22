@@ -9,7 +9,7 @@ clear
 #	Website: https://github.com/VR51/Ubuntu-Runscript
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
-#	This Release: 14th Jan. 2017
+#	This Release: 21th March. 2017
 #
 #	Copyright 2016 Lee Hodson
 #	License: GNU
@@ -155,16 +155,16 @@ sudo add-apt-repository ppa:kubuntu-ppa/backports
 ## VirtualBox
 
 sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian yakkety contrib" >> /etc/apt/sources.list.d/virtualbox.list'
-wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+sudo wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 
 ## Web Server
 
 sudo apt-add-repository ppa:ondrej/apache2
 sudo apt-add-repository ppa:ondrej/php
 
-sudo apt-get install software-properties-common
 sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-sudo add-apt-repository 'deb [arch=amd64,i386] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu yakkety main'
+sudo add-apt-repository 'deb [arch=amd64,i386] http://lon1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu yakkety main'
 
 sudo sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
 sudo sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
@@ -229,7 +229,7 @@ sudo add-apt-repository ppa:mmbossoni-gmail/emu
 ###
 
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get --with-new-pkgs upgrade
 sudo apt-get dist-upgrade
 
 ###
@@ -238,6 +238,7 @@ sudo apt-get dist-upgrade
 #       Each to a line to make it easy to follow
 ###
 
+sudo apt-get install software-properties-common
 sudo apt-get install y-ppa-manager
 sudo apt-get install vlc
 sudo apt-get install gimp
