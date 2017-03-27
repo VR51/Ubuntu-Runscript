@@ -1,0 +1,551 @@
+#!/bin/bash
+clear
+
+##
+#
+#	Runscript 16.10 64-bit
+#
+#	For *Ubuntu 16.10 64-bit
+#
+#	Based on softman 1.0.1
+#
+#	Lead Author: Lee Hodson
+#
+#	This Release: 27th March. 2017
+#	First Written: 21st Jan. 2016
+#	First Release: 21st Jan. 2016
+#
+#	Website: https://github.com/VR51/Ubuntu-Runscript
+#	Donate: paypal.me/vr51
+#
+#	Copyright 2016 Lee Hodson
+#
+#	License: GPL3
+#
+#	Use of this program is at your own risk
+#
+#	TO RUN:
+#
+#	- Ensure the script is executable.
+#	- Command line: ./runscript
+#	- File browser: click runscript
+#
+#	Interactive software installer to add a set of useful packages to Ubuntu and Kubuntu distros, including KDE Neon.
+#	Installs repositories and software as detailed below. Useful for initialising a cleanly installed OS.
+#
+#	Runscript will prompt for confirmation before any repos or software are installed. First the repository installer prompt then the software installed prompt for each package set.
+#	This double opt-in prompt allows time to reconsider the first response or to choose to add the repos then add the software later.
+#
+#	This is for 64 bit systems.
+#
+#	Software and repositories Installed:
+#
+#	BASIC:
+#
+#		Backports
+#		y-ppa-manager
+#		vlc
+#		gimp (latest)
+#		krita (latest)
+#		google-chrome-stable
+#		webcamstudio
+#		openshot-qt
+#		simplescreenrecorder
+# 		virtualbox-5.1
+#
+#	MAME:
+#
+#		MAME
+#		QMC2
+#
+#	SERVER
+#
+#		apache2
+#		php7.0
+#		php7.0-mysql
+#		+ other PHP7 modules
+#		mariadb-server
+#		phpmyadmin
+#		Webmin
+#		Mod_Pagespeed
+#
+#	You will need to configure Apache modules through either terminal or Webmin after installation has completed.
+#
+#	Functions in here: runscript_run runscript_prompt runscript_repos runscript_manual softman softman_message runscript_launch
+#
+#
+###
+
+version='Runscript 16.10 64-bit'
+
+declare -ga what
+
+# NOTES: Full install size is around 12 GB. Takes approx. 1 hour to install into non-SSD VM.
+
+basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable webcamstudio virtualbox-5.1 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions )
+
+mamePackage=( mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman )
+
+serverPackage=( apache2 php7.0 php7.0-common php7.0-mysql mariadb-server phpmyadmin openssl php7.0-bcmath php7.0-json php7.0-mbstring php7.0-xsl php7.0-bz2 php7.0-curl php7.0-enchant php7.0-gmp php7.0-imap php7.0-interbase php7.0-ldap php7.0-mcrypt php7.0-odbc php7.0-pspell php7.0-readline php7.0-recode php7.0-soap php7.0-tidy php7.0-zip php7.0-dba php7.0-gd php7.0-opcache php7.0-snmp php7.0-xml php7.0-cli php7.0-phpdbg php7.0-fpm )
+
+## Receive script arguments and process them -- See 'run' at bottom of script
+
+function runscript_run() {
+	
+	## Open shell if not already running in one
+	
+	tty -s
+	if test "$?" -ne 0 ; then
+		runscript_launch
+	fi
+	
+	## Prompt for repositories and files to install
+	
+	printf "INSTALL REPOSITORIES\n\n"
+
+	runscript_prompt "Install basic repos?" "basicRepo"
+
+	runscript_prompt "Install MAME repos?" "mameRepo"
+
+	runscript_prompt "Install web server repos?" "serverRepo"
+
+	printf "\nINSTALL SOFTWARE\n\n"
+
+	runscript_prompt "Install basic software?" "basicPackage"
+
+	runscript_prompt "Install MAME software?" "mamePackage"
+
+	runscript_prompt "Install server software?" "serverPackage"
+
+	runscript_prompt "Install Webmin server admin panel?" "webminManual"
+
+	runscript_prompt "Install Mod_Pagespeed for Apache2?" "pagespeedManual"
+
+	printf "\nUPGRADDE & CLEAN\n\n"
+
+	runscript_prompt "Do a final upgrade and clean to finish?" "finish"
+	
+	# declare -p what # debug
+	
+	## Install requested items
+	
+	n=0
+	o=${#what[@]}
+	while [ "$n" -lt "$o" ]
+	do
+	
+		if echo "${what[$n]}" | grep -iq 'repo'
+		then
+			runscript_repos "${what[$n]}"
+			# echo ${what[$n]} # debug
+			unset what[$n]
+			let n=n+1
+		fi
+		
+		if echo "${what[$n]}" | grep -iq 'package'
+		then
+			package="${what[$n]}" # Get the value @ $n e.g. serverPackage
+			package=$package[*] # Get the value of ${serverPackage[@]} using indirect substitution.
+			package=${!package}
+			
+			# Rebuild the array
+			# for i in "$package"
+			# do
+			#	newpackage+=( $i )
+			# done
+
+			apt-get update
+			softman upgrade
+			softman install "$package"
+			# echo ${what[$n]} # debug
+			# echo "${!package}" # debug
+			unset what[$n]
+			let n=n+1
+			
+		fi
+		
+		if echo "${what[$n]}" | grep -iq 'manual'
+		then
+			runscript_manual "${what[$n]}"
+			# echo ${what[$n]} # debug
+			unset what[$n]
+			let n=n+1
+		fi
+
+		if echo "${what[$n]}" | grep -iq 'finish'
+		then
+			softman launch
+			# echo ${what[$n]} # debug
+			unset what[$n]
+			let n=n+1
+		fi
+		
+		if echo "${what[$n]}" | grep -iq '^n$'
+		then
+			unset what[$n]
+			let n=n+1
+		fi
+	
+	done
+
+	echo "All done. Restart system when ready. Press a key to close script."
+	read something
+	
+	exit
+
+}
+
+function runscript_prompt() {
+
+	bold=$(tput bold)
+	normal=$(tput sgr0)
+
+  while true; do
+    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    case $REPLY in
+    [yY])
+			what+=( "$2" )
+			printf "\n"
+			return 0
+		;;
+
+		[nN])
+			what+=( 'n' )
+			printf "\n"
+			return 1
+		;;
+
+      *)
+		printf "${bold} %s ${normal}" "Answer ${bold}y${normal} to proceed or ${bold}n${normal}.\n"
+    esac
+  done
+  
+}
+
+
+function runscript_repos() {
+
+	###
+	#
+	#	Install repositories and GPG keys
+	#
+	###
+
+	case $1 in
+	
+	basicRepo)
+	
+		## Kubuntu Backports
+
+		apt-add-repository ppa:kubuntu-ppa/ppa
+		add-apt-repository ppa:kubuntu-ppa/backports
+
+		## VirtualBox
+
+		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian yakkety contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+		wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+		wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+
+		## Google Chrome
+
+		wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | apt-key add -
+		sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+
+		## Gimp
+		# Beta versions
+
+		apt-add-repository ppa:otto-kesselgulasch/gimp
+
+		## Krita
+		# https://krita.org/download/krita-desktop/
+
+		add-apt-repository ppa:dimula73/krita
+
+		## Web Update YPPA Manager
+
+		add-apt-repository ppa:webupd8team/y-ppa-manager
+
+		## Openshot Video Editor
+
+		add-apt-repository ppa:openshot.developers/ppa
+
+		## Webcamstudio
+
+		add-apt-repository ppa:webcamstudio/webcamstudio-dailybuilds
+
+		## Simple Screen Recorder
+
+		add-apt-repository ppa:maarten-baert/simplescreenrecorder
+	
+	;;
+	
+	mameRepo)
+	
+		## MAME (this is now MAME and MESS together)
+
+		add-apt-repository ppa:c.falco/mame
+
+		## QMC2 MAME GUI/Frontend
+
+		add-apt-repository ppa:mmbossoni-gmail/emu
+	
+	;;
+	
+	serverRepo)
+	
+		## Web Server
+
+		apt-add-repository ppa:ondrej/apache2
+		apt-add-repository ppa:ondrej/php
+
+		apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+		add-apt-repository 'deb [arch=amd64,i386] http://lon1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu yakkety main'
+
+		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
+		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
+
+
+		## PhpMyAdmin
+
+		apt-add-repository ppa:nijel/phpmyadmin
+
+	;;
+	
+	esac
+	
+}
+
+function runscript_manual() {
+
+	case $1 in
+	
+	webminManual)
+	
+		## Install Webmin
+		# PPA is still on 'sarge' so we download and install the .deb package. Update Webmin from within Webmin.
+		# See http://www.webmin.com/deb.html
+		wget http://prdownloads.sourceforge.net/webadmin/webmin_1.831_all.deb
+		dpkg --install webmin_1.831_all.deb
+		rm webmin_1.831_all.deb
+		
+	;;
+	
+	pagespeedManual)
+	
+		## Mod_Pagespeed
+
+		wget https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb
+		dpkg -i mod-pagespeed-*.deb
+		apt-get -f install
+		rm mod-pagespeed-*.deb
+	
+	;;
+	
+	esac
+
+}
+
+
+###
+#
+# SOFTMAN
+#
+###
+
+## Run softman
+
+function softman() {
+
+	##
+	#
+	#	Softman 1.0.0
+	#
+	#	Install or reinstall packages with build dependencies.
+	#	Update system
+	#	Build binaries from source
+	#
+	#		Written to solve a Linux World problem
+	#
+	#	softman arg args
+	#
+	#	@1 = install,upgrade,reinstall,flush,build,findbad,fixbad,rebuildsystem:
+	#				are we to install, reinstall or upgrade packages;
+	#				are we to compile a .deb from source;
+	#				are we to clean the cache;
+	#				are we to find and/or fix installed packages that are corrupted;
+	#				are we to find and/or reinstall packages with missing files;
+	#				are we to re-install every package with rebuildsystem?
+	#	@2 = list of packages to (re)install: space separated list of packages.
+	# 
+	#	Copyright Lee Hodson @ VR51 & JournalXtra
+	#
+	#
+	#	EXAMPLE USAGE
+	#
+	# softman install 'simplescreenrecorder gimp vlc'
+	# softman reinstall 'simplescreenrecorder gimp vlc'
+	#
+	##
+
+	options='--install-suggests --show-progress'
+	_options='--install-suggests'
+	
+	case $1 in
+	
+	launch)
+		sudo apt-get update
+		sudo apt-get $options upgrade
+		sudo apt-get $options dist-upgrade
+		sudo apt-get $options full-upgrade
+		sudo apt-get clean
+		sudo apt-get autoremove
+		softman_message 'upgrade'
+		read something
+	;;
+	
+	upgrade)
+		apt-get $options upgrade
+		apt-get $options dist-upgrade
+		apt-get $options full-upgrade
+		
+	;;
+
+	install)
+
+		for i in ${2}; do
+				apt-get $_options build-dep "$i"
+				apt-get $options install "$i"
+		done
+
+	;;
+
+	reinstall)
+
+		for i in ${2}; do
+				apt-get $_options build-dep "$i"
+				apt-get install $options --reinstall "$i"
+		done
+
+	;;
+	
+	findbad)
+	
+		if command -v debsums > /dev/null 2>&1; then
+				apt-get clean
+				debsums_init ; debsums -cs
+				# debsums -es
+		else
+				softman install debsums
+				softman findbad
+		fi
+		
+	
+	;;
+	
+	fixbad)
+	
+		if command -v debsums > /dev/null 2>&1; then
+				apt-get clean
+				apt-get install $options --reinstall $(dpkg -S $(debsums -c) | cut -d : -f 1 | sort -u)
+		else
+				softman install debsums
+				softman fixbad
+				# debsums -es
+		fi
+	
+	;;
+	
+	fixmissing)
+	
+		if command -v debsums > /dev/null 2>&1; then
+				apt-get clean
+				debsums -c 2>&1 | cut -d " " -f 4 | sort -u | xargs -rd '\n' -- dpkg -S | cut -d : -f 1 | sort -u | xargs -rd '\n' -- apt-get install $options --reinstall
+		else
+				softman install debsums
+				softman fixmissing
+		fi
+	
+	;;
+	
+	rebuildsystem)
+	
+			dpkg -l | grep '^ii ' | sed 's/  */\t/g' |cut -f 2,3 | sed 's/\t/=/' | xargs apt-get install --reinstall -y --ignore-missing
+			
+			# See: http://unix.stackexchange.com/questions/79028/debian-install-missing-man-pages
+	
+	;;
+	
+	build)
+	
+		for i in ${2}; do
+			apt-get $options --compile source "$i"
+		done
+	;;
+	
+	flush)
+	
+		apt-get clean
+		apt-get autoremove
+	
+	;;
+
+	*)
+
+		return 2
+
+	;;
+
+	esac
+	
+	softman_message "$arg"
+
+}
+
+## Message
+
+function softman_message() {
+	printf "\n\nsoftman service completed: $arg\n"
+}
+
+
+###
+#
+# SOFTMAN END
+#
+###
+
+
+## launch terminal
+
+function runscript_launch() {
+		# This code section is released in public domain by Han Boetes <han@mijncomputer.nl>
+		# Updated by Dave Davenport <qball@gmpclient.org>
+		# Updated by Lee Hodson <https://journalxtra.com> - Added break on successful hit, added more terminals, humanized the failure message, replaced call to rofi with printf and made $terminal an array for easy reuse.
+		#
+		# This script tries to exec a terminal emulator by trying some known terminal
+		# emulators.
+		#
+		# We welcome patches that add distribution-specific mechanisms to find the
+		# preferred terminal emulator. On Debian, there is the x-terminal-emulator
+		# symlink for example.
+
+		terminal=( konsole gnome-terminal x-terminal-emulator xdg-terminal terminator urxvt rxvt Eterm aterm roxterm xfce4-terminal termite lxterminal xterm )
+		for i in ${terminal[@]}; do
+			if command -v $i > /dev/null 2>&1; then
+				exec $i -e "$0"
+				break
+			else
+				printf "\nUnable to determine the correct terminal program to run e.g gnome-terminal or konsole. Rerun this program within a terminal.\n"
+				read something
+				exit 1
+			fi
+		done
+}
+
+## Boot
+
+[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
+
+runscript_run "$@"
+
+# Exit is at end of runscript_run()
