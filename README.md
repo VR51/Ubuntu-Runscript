@@ -1,49 +1,87 @@
 # Ubuntu-Runscript
-Adds a collection of software repositories to *buntu distros and installs specific software pacakges.
 
-Designed for use with a clean install of Kubuntu or Ubuntu. This is the script I use to create my preferred software environment after clean (re)installation of Kubuntu.
+Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 16.10 Yakketi Yak release.
 
-Take note that I'm a web developer. This runscript installs among other software Apache2, PHP7, MariaDB, Webmin and PhpMyAdmin. If you do not need the web server components you will need to delete the sections of the script that install them. I will release a Q&A version of this script soon.
+This is an interactive software installer that adds preconfigured sets of useful software packages to Ubuntu and Kubuntu distros, including KDE Neon.
+
+- Runscript installs repositories and software as detailed in this readme.
+- Runscript is useful for populating a freshly installed OS with default software repos and packages.
+- Runscript can be used to add software to a non fresh OS.
+
+Runscript will prompt for confirmation before any repos or software are installed. First the repository installer prompt then the software installer prompt for each package set.
+
+This double opt-in prompt allows time to reconsider the first response or to choose to add the repos then add the software later.
+
+# Features
+
+- Configurable
+- User friendly
+- Interactive
 
 # Version
+Yakketi. Released 27th MArch 2017
 
-16.10 Yakkety.
-
-If using in a different release of Ubuntu  you will need to update 'xenial' in some repos to whatever the Ubuntu release is.
+If using in a different release of Ubuntu you will need to change 'yakketti' in some of the repo lines in the code to whatever your Ubuntu release is.
 
 # How to Use
-Download the script to your desktop. Click the file runscript.sh. If it fails to run check the file is set to be 'executable' or open a terminal and type 'sh runscript.sh' (withuot the quotes).
 
-Use once only. The script does not check whether repos are already installed.
+## Desktop
+- Download the script to your desktop.
+- Click the file runscript.sh.
+- If it fails to run check the file is set to be 'executable'
 
-# Repositories Enabled
-* ppa:kubuntu-ppa/ppa
-* ppa:kubuntu-ppa/backports
-* deb http://download.virtualbox.org/virtualbox/debian xenial contrib
-* ppa:ondrej/apache2
-* ppa:ondrej/php
-* http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu xenial main
-* http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu xenial main
-* ppa:nijel/phpmyadmin
-* deb http://dl.google.com/linux/chrome/deb/ stable main
-* ppa:otto-kesselgulasch/gimp
-* ppa:dimula73/krita
-* ppa:webupd8team/y-ppa-manager
-* ppa:openshot.developers/ppa
-* ppa:webcamstudio/webcamstudio-dailybuilds
+## Commandline
+- Make the file executable
+- Open a terminal
+- Browse to the file directory
+- type ./runscript 
 
-# Software Installed
-* y-ppa-manager (graphical PPA repository manager)
-* vlc
-* gimp (latest beta version)
-* krita
-* google-chrome-stable
-* webcamstudio
-* virtualbox-5.0 (For Virtual OS Installation)
-* apache2 (Web server)
-* php7.0
-* mariadb-server
-* phpmyadmin
-* openshot-qt (Video Editor)
-* Webmin
-* Mod Pagespeed
+# Software Packages
+## BASIC:
+
+- Backports (repository)
+- y-ppa-manager
+- vlc
+- gimp (latest)
+- krita (latest)
+- google-chrome-stable
+- webcamstudio
+- openshot-qt
+- simplescreenrecorder
+- virtualbox-5.1
+
+##	MAME:
+
+- MAME
+- QMC2
+
+##	SERVER
+
+- apache2
+- php7.0
+- php7.0-mysql + other standard PHP7 modules
+- mariadb-server
+- phpmyadmin
+- Webmin
+- Mod_Pagespeed
+
+# Notes
+After Webmin is installed you will need to set the user password:
+
+- sudo /usr/share/webmin/changepass.pl /etc/webmin root NEWPASSWORD
+
+You can customize the exact software in each package set by adding or removing their program titles (as known in the repo) to the package lists e.g. add software to or remove software from the basicPackage or the serverPackage.
+
+# History
+Runscript was written to facilitate the installation of web servers and the reinstallation of Kubuntu. The name comes from 'Run the script to install packages'.
+
+This started as a qickly written click-to-run script that had no prompts. The idea was to get the job done with as few questions as possible. Now we have prompts to confirm the changes to be made to an OS system.
+
+# Future
+
+- autodetection of OS version + warning if OS too old for script to function
+- more modularisation.
+
+# Donate
+
+Send donations to https:/paypal.me/vr51/
