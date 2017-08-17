@@ -11,7 +11,7 @@ clear
 #
 #	Lead Author: Lee Hodson
 #
-#	This Release: 27th March. 2017
+#	This Release: 16th August. 2017
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
 #
@@ -27,7 +27,7 @@ clear
 #	TO RUN:
 #
 #	- Ensure the script is executable.
-#	- Command line: ./runscript
+#	- Command line: ./runscript OR bash ./runscript
 #	- File browser: click runscript
 #
 #	Interactive software installer to add a set of useful packages to Ubuntu and Kubuntu distros, including KDE Neon.
@@ -38,7 +38,7 @@ clear
 #
 #	This is for 64 bit systems.
 #
-#	Software and repositories Installed:
+#	Software and repositories for optional install:
 #
 #	BASIC:
 #
@@ -61,8 +61,8 @@ clear
 #	SERVER
 #
 #		apache2
-#		php7.0
-#		php7.0-mysql
+#		php7.1
+#		php7.1-mysql
 #		+ other PHP7 modules
 #		mariadb-server
 #		phpmyadmin
@@ -86,7 +86,7 @@ basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-ch
 
 mamePackage=( mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman )
 
-serverPackage=( apache2 php7.0 php7.0-common php7.0-mysql mariadb-server phpmyadmin openssl php7.0-bcmath php7.0-json php7.0-mbstring php7.0-xsl php7.0-bz2 php7.0-curl php7.0-enchant php7.0-gmp php7.0-imap php7.0-interbase php7.0-ldap php7.0-mcrypt php7.0-odbc php7.0-pspell php7.0-readline php7.0-recode php7.0-soap php7.0-tidy php7.0-zip php7.0-dba php7.0-gd php7.0-opcache php7.0-snmp php7.0-xml php7.0-cli php7.0-phpdbg php7.0-fpm )
+serverPackage=( apache2 php7.1 php7.1-common php7.1-mysql mariadb-server phpmyadmin openssl php7.1-bcmath php7.1-json php7.1-mbstring php7.1-xsl php7.1-bz2 php7.1-curl php7.1-enchant php7.1-gmp php7.1-imap php7.1-interbase php7.1-ldap php7.1-mcrypt php7.1-odbc php7.1-pspell php7.1-readline php7.1-recode php7.1-soap php7.1-tidy php7.1-zip php7.1-dba php7.1-gd php7.1-opcache php7.1-snmp php7.1-xml php7.1-cli php7.1-phpdbg php7.1-fpm )
 
 ## Receive script arguments and process them -- See 'run' at bottom of script
 
