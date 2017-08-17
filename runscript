@@ -324,6 +324,7 @@ function runscript_manual() {
 		## Install Webmin
 		# PPA is still on 'sarge' so we download and install the .deb package. Update Webmin from within Webmin.
 		# See http://www.webmin.com/deb.html
+		softman install apt-show-versions libauthen-pam-perl
 		wget http://prdownloads.sourceforge.net/webadmin/webmin_1.831_all.deb
 		dpkg --install webmin_1.831_all.deb
 		rm webmin_1.831_all.deb
