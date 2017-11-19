@@ -1,6 +1,6 @@
 # Ubuntu-Runscript
 
-Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 16.10 Yakketi Yak release.
+Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 17.10 Artful release.
 
 This is an interactive software installer that adds preconfigured sets of useful software packages to Ubuntu and Kubuntu distros, including KDE Neon.
 
@@ -19,7 +19,7 @@ This double opt-in prompt allows time to reconsider the first response or to cho
 - Interactive
 
 # Version
-Yakketi. Released 27th MArch 2017
+Artful. Released 20th November 2017
 
 If using in a different release of Ubuntu you will need to change 'yakketti' in some of the repo lines in the code to whatever your Ubuntu release is.
 
@@ -60,7 +60,7 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 - apache2
 - php7.0
 - php7.0-mysql + other standard PHP7 modules
-- mariadb-server
+- mariadb-server 10.2
 - phpmyadmin
 - Webmin
 - Mod_Pagespeed
