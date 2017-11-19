@@ -3,15 +3,15 @@ clear
 
 ##
 #
-#	Runscript 16.10 64-bit
+#	Runscript 17.10 64-bit
 #
-#	For *Ubuntu 16.10 64-bit
+#	For *Ubuntu 17.10 64-bit
 #
 #	Based on softman 1.0.1
 #
 #	Lead Author: Lee Hodson
 #
-#	This Release: 16th August. 2017
+#	This Release: 20th November. 2017
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
 #
@@ -242,7 +242,7 @@ function runscript_repos() {
 
 		## VirtualBox
 
-		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian yakkety contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian artful contrib" >> /etc/apt/sources.list.d/virtualbox.list'
 		wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 		wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 
@@ -299,10 +299,10 @@ function runscript_repos() {
 		apt-add-repository ppa:ondrej/php
 
 		apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-		add-apt-repository 'deb [arch=amd64,i386] http://lon1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu yakkety main'
+		add-apt-repository 'deb [arch=amd64,i386] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu artful main'
 
-		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
-		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu yakkety main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-yakkety.list'
+		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu artful main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-artful.list'
+		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu artful main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-artful.list'
 
 
 		## PhpMyAdmin
@@ -325,9 +325,9 @@ function runscript_manual() {
 		# PPA is still on 'sarge' so we download and install the .deb package. Update Webmin from within Webmin.
 		# See http://www.webmin.com/deb.html
 		softman install apt-show-versions libauthen-pam-perl
-		wget http://prdownloads.sourceforge.net/webadmin/webmin_1.831_all.deb
-		dpkg --install webmin_1.831_all.deb
-		rm webmin_1.831_all.deb
+		wget http://prdownloads.sourceforge.net/webadmin/webmin_1.860_all.deb
+		dpkg --install webmin_1.860_all.deb
+		rm webmin_1.860_all.deb
 		
 	;;
 	
