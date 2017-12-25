@@ -11,7 +11,7 @@ clear
 #
 #	Lead Author: Lee Hodson
 #
-#	This Release: 20th November. 2017
+#	This Release: 25th December 2017
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
 #
@@ -51,7 +51,8 @@ clear
 #		webcamstudio
 #		openshot-qt
 #		simplescreenrecorder
-# 		virtualbox-5.1
+# 		virtualbox-5.2
+#		LyX
 #
 #	MAME:
 #
@@ -82,7 +83,7 @@ declare -ga what
 
 # NOTES: Full install size is around 12 GB. Takes approx. 1 hour to install into non-SSD VM.
 
-basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable webcamstudio virtualbox-5.1 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions )
+basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable webcamstudio lyx virtualbox-5.2 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions )
 
 mamePackage=( mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman )
 
@@ -276,6 +277,9 @@ function runscript_repos() {
 		## Simple Screen Recorder
 
 		add-apt-repository ppa:maarten-baert/simplescreenrecorder
+		
+		## Lyx
+		add-apt-repository ppa:lyx-devel/release
 	
 	;;
 	
