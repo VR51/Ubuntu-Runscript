@@ -19,7 +19,7 @@ This double opt-in prompt allows time to reconsider the first response or to cho
 - Interactive
 
 # Version
-Artful. Released 20th November 2017
+Artful. Released 25th December 2017
 
 If using in a different release of Ubuntu you will need to change 'yakketti' in some of the repo lines in the code to whatever your Ubuntu release is.
 
@@ -36,8 +36,8 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 - Browse to the file directory
 - type ./runscript 
 
-# Software Packages
-## BASIC:
+# Software Packages / PPAs
+## BASIC REPOS & UTILITIES:
 
 - Backports (repository)
 - y-ppa-manager
@@ -48,14 +48,15 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 - webcamstudio
 - openshot-qt
 - simplescreenrecorder
-- virtualbox-5.1
+- virtualbox-5.2
+- LyX
 
-##	MAME:
+## MAME:
 
 - MAME
 - QMC2
 
-##	SERVER
+## SERVER
 
 - apache2
 - php7.0
@@ -64,6 +65,8 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 - phpmyadmin
 - Webmin
 - Mod_Pagespeed
+
+The PHP repository includes PHP 7.1. Some PHP scripts will need to be rewritten to add PHP 7.1 compatibility. For that reason, PHP 7.1 is not installed by Ubuntu Runscript.
 
 # Notes
 After Webmin is installed you will need to set the user password:
