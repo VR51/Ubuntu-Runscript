@@ -254,8 +254,8 @@ function runscript_repos() {
 
 		## Gimp
 		# Beta versions
-
-		apt-add-repository ppa:otto-kesselgulasch/gimp
+		
+		add-apt-repository ppa:otto-kesselgulasch/gimp-edge
 
 		## Krita
 		# https://krita.org/download/krita-desktop/
