@@ -260,7 +260,7 @@ function runscript_repos() {
 		## Krita
 		# https://krita.org/download/krita-desktop/
 
-		add-apt-repository ppa:dimula73/krita
+		add-apt-repository ppa:kritalime/ppa
 
 		## Web Update YPPA Manager
 
