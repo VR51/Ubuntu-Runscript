@@ -1,6 +1,6 @@
 # Ubuntu-Runscript
 
-Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 17.10 Artful release.
+Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 18.04 Bionic release.
 
 This is an interactive software installer that adds preconfigured sets of useful software packages to Ubuntu and Kubuntu distros, including KDE Neon.
 
@@ -19,7 +19,7 @@ This double opt-in prompt allows time to reconsider the first response or to cho
 - Interactive
 
 # Version
-Artful. Released 25th December 2017
+Bionic. Released 21st July 2018
 
 If using in a different release of Ubuntu you will need to change 'yakketti' in some of the repo lines in the code to whatever your Ubuntu release is.
 
@@ -59,14 +59,12 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 ## SERVER
 
 - apache2
-- php7.0
-- php7.0-mysql + other standard PHP7 modules
-- mariadb-server 10.2
+- php7.2
+- php7.2-mysql + other standard PHP7 modules
+- mariadb-server 10.3
 - phpmyadmin
 - Webmin
 - Mod_Pagespeed
-
-The PHP repository includes PHP 7.1. Some PHP scripts will need to be rewritten to add PHP 7.1 compatibility. For that reason, PHP 7.1 is not installed by Ubuntu Runscript.
 
 # Notes
 After Webmin is installed you will need to set the user password:
