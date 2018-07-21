@@ -63,9 +63,9 @@ clear
 #
 #		apache2
 #		php7.2
-#		php7.2-mysql (as MariaDB)
+#		php7.2-mysql (for MariaDB)
 #		+ other PHP7 modules
-#		mariadb-server
+#		mariadb-server 10.3
 #		phpmyadmin
 #		Webmin
 #		Mod_Pagespeed
@@ -303,7 +303,7 @@ function runscript_repos() {
 		apt-add-repository ppa:ondrej/php
 
 		apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-		add-apt-repository 'deb [arch=amd64,i386] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu bionic main'
+		sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.sax.uk.as61049.net/mariadb/repo/10.3/ubuntu bionic main'
 
 		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu bionic main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-bionic.list'
 		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu bionic main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-bionic.list'
