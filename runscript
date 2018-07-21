@@ -3,15 +3,15 @@ clear
 
 ##
 #
-#	Runscript 17.10 64-bit
+#	Runscript 18.04 64-bit
 #
-#	For *Ubuntu 17.10 64-bit
+#	For *Ubuntu 18.04 64-bit
 #
 #	Based on softman 1.0.1
 #
 #	Lead Author: Lee Hodson
 #
-#	This Release: 25th December 2017
+#	This Release: 21st July 2018
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
 #
@@ -62,8 +62,8 @@ clear
 #	SERVER
 #
 #		apache2
-#		php7.1
-#		php7.1-mysql
+#		php7.2
+#		php7.2-mysql (as MariaDB)
 #		+ other PHP7 modules
 #		mariadb-server
 #		phpmyadmin
@@ -77,7 +77,7 @@ clear
 #
 ###
 
-version='Runscript 16.10 64-bit'
+version='Runscript 18.04 64-bit'
 
 declare -ga what
 
@@ -87,7 +87,7 @@ basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-ch
 
 mamePackage=( mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman )
 
-serverPackage=( apache2 php7.1 php7.1-common php7.1-mysql mariadb-server phpmyadmin openssl php7.1-bcmath php7.1-json php7.1-mbstring php7.1-xsl php7.1-bz2 php7.1-curl php7.1-enchant php7.1-gmp php7.1-imap php7.1-interbase php7.1-ldap php7.1-mcrypt php7.1-odbc php7.1-pspell php7.1-readline php7.1-recode php7.1-soap php7.1-tidy php7.1-zip php7.1-dba php7.1-gd php7.1-opcache php7.1-snmp php7.1-xml php7.1-cli php7.1-phpdbg php7.1-fpm )
+serverPackage=( apache2 php7.2 php7.2-common php7.2-mysql mariadb-server phpmyadmin openssl php7.2-bcmath php7.2-json php7.2-mbstring php7.2-xsl php7.2-bz2 php7.2-curl php7.2-enchant php7.2-gmp php7.2-imap php7.2-interbase php7.2-ldap php7.2-mcrypt php7.2-odbc php7.2-pspell php7.2-readline php7.2-recode php7.2-soap php7.2-tidy php7.2-zip php7.2-dba php7.2-gd php7.2-opcache php7.2-snmp php7.2-xml php7.2-cli php7.2-phpdbg php7.2-fpm )
 
 ## Receive script arguments and process them -- See 'run' at bottom of script
 
@@ -243,7 +243,7 @@ function runscript_repos() {
 
 		## VirtualBox
 
-		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian artful contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian bionic contrib" >> /etc/apt/sources.list.d/virtualbox.list'
 		wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 		wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 
@@ -303,10 +303,10 @@ function runscript_repos() {
 		apt-add-repository ppa:ondrej/php
 
 		apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-		add-apt-repository 'deb [arch=amd64,i386] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu artful main'
+		add-apt-repository 'deb [arch=amd64,i386] http://ams2.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu bionic main'
 
-		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu artful main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-artful.list'
-		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu artful main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-artful.list'
+		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu bionic main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-bionic.list'
+		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu bionic main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-bionic.list'
 
 
 		## PhpMyAdmin
@@ -329,9 +329,9 @@ function runscript_manual() {
 		# PPA is still on 'sarge' so we download and install the .deb package. Update Webmin from within Webmin.
 		# See http://www.webmin.com/deb.html
 		softman install apt-show-versions libauthen-pam-perl
-		wget http://prdownloads.sourceforge.net/webadmin/webmin_1.860_all.deb
-		dpkg --install webmin_1.860_all.deb
-		rm webmin_1.860_all.deb
+		wget http://prdownloads.sourceforge.net/webadmin/webmin_1.890_all.deb
+		dpkg --install webmin_1.890_all.deb
+		rm webmin_1.890_all.deb
 		
 	;;
 	
