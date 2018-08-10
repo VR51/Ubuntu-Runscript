@@ -19,7 +19,7 @@ This double opt-in prompt allows time to reconsider the first response or to cho
 - Interactive
 
 # Version
-Bionic. Released 21st July 2018
+Bionic. Released 10th Aug 2018
 
 If using in a different release of Ubuntu you will need to change 'yakketti' in some of the repo lines in the code to whatever your Ubuntu release is.
 
@@ -39,22 +39,25 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 # Software Packages / PPAs
 ## BASIC REPOS & UTILITIES:
 
-- Backports (repository)
-- y-ppa-manager
-- vlc
-- gimp (latest)
-- krita (latest)
-- google-chrome-stable
-- webcamstudio
-- openshot-qt
-- simplescreenrecorder
-- virtualbox-5.2
-- LyX
+- Backports (extra Ubuntu official repository)
+- y-ppa-manager (PPA repository manager)
+- vlc (multimedia player and streamer)
+- gimp (latest) (graphics app)
+- krita (latest) (graphics app)
+- google-chrome-stable (web browser)
+- opera-stable (web browser)
+- brave (web browser)
+- webcamstudio (web camera controller)
+- openshot-qt (screenshot manager)
+- simplescreenrecorder (screen recorder)
+- virtualbox-5.2 (OS virtualiser)
+- LyX (advanced text editor)
 
 ## MAME:
 
-- MAME
-- QMC2
+- MAME (arcade, personal computer and home cnosole emulator)
+- QMC2 (software manager for MAME)
+- See more info at https://journalxtra.com/gaming/download-complete-sets-of-mess-and-mame-roms/
 
 ## SERVER
 
@@ -72,6 +75,9 @@ After Webmin is installed you will need to set the user password:
 - sudo /usr/share/webmin/changepass.pl /etc/webmin root NEWPASSWORD
 
 You can customize the exact software in each package set by adding or removing their program titles (as known in the repo) to the package lists e.g. add software to or remove software from the basicPackage or the serverPackage.
+
+Brave is a privacy focused web browser. Go through the settings to increase your security.
+Opera is included because it has a built in VPN and other useful features.
 
 # History
 Runscript was written to facilitate the installation of web servers and the reinstallation of Kubuntu. The name comes from 'Run the script to install packages'.
