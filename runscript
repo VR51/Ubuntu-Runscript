@@ -11,14 +11,14 @@ clear
 #
 #	Lead Author: Lee Hodson
 #
-#	This Release: 21st July 2018
+#	This Release: 10th Aug 2018
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
 #
 #	Website: https://github.com/VR51/Ubuntu-Runscript
 #	Donate: paypal.me/vr51
 #
-#	Copyright 2016 Lee Hodson
+#	Copyright 2016-2018 Lee Hodson
 #
 #	License: GPL3
 #
@@ -42,22 +42,25 @@ clear
 #
 #	BASIC:
 #
-#		Backports
-#		y-ppa-manager
-#		vlc
-#		gimp (latest)
-#		krita (latest)
-#		google-chrome-stable
-#		webcamstudio
-#		openshot-qt
-#		simplescreenrecorder
-# 		virtualbox-5.2
-#		LyX
+#		Backports (additional Ubuntu software repository)
+#		y-ppa-manager (PPA software installer)
+#		vlc (multimedia player & streamer)
+#		gimp (latest) (graphics app)
+#		krita (latest) (graphics app)
+#		google-chrome-stable (web browser)
+#		brave (web browser)
+#		opera (web browser)
+#		webcamstudio (web camera management)
+#		openshot-qt (screenshot tool)
+#		simplescreenrecorder (screen recorder)
+# 		virtualbox-5.2 (environment for virtual OS management)
+#		LyX (advanced text editor)
 #
 #	MAME:
 #
-#		MAME
-#		QMC2
+#		MAME (home computer, console and arcade emulator)
+#		QMC2 (software manager for MAME)
+#		More info at https://journalxtra.com/gaming/download-complete-sets-of-mess-and-mame-roms/
 #
 #	SERVER
 #
@@ -83,7 +86,7 @@ declare -ga what
 
 # NOTES: Full install size is around 12 GB. Takes approx. 1 hour to install into non-SSD VM.
 
-basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable webcamstudio lyx virtualbox-5.2 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions )
+basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable brave opera-stable webcamstudio lyx virtualbox-5.2 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions apt-transport-https lsb-release )
 
 mamePackage=( mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman )
 
@@ -251,6 +254,16 @@ function runscript_repos() {
 
 		wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | apt-key add -
 		sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+		
+		## Brave Web Browser
+		
+		curl https://s3-us-west-2.amazonaws.com/brave-apt/keys.asc | sudo apt-key add -
+		echo "deb [arch=amd64] https://s3-us-west-2.amazonaws.com/brave-apt `lsb_release -sc` main" | sudo tee -a /etc/apt/sources.list.d/brave-`lsb_release -sc`.list
+		
+		## Opera Stable
+		
+		add-apt-repository 'deb https://deb.opera.com/opera-stable/ stable non-free'
+		wget -qO- https://deb.opera.com/archive.key | sudo apt-key add -
 
 		## Gimp
 		# Beta versions
