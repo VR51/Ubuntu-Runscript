@@ -2,23 +2,22 @@
 clear
 
 ##
+#	Runscript 19.10 64-bit
 #
-#	Runscript 18.04 64-bit
-#
-#	For *Ubuntu 18.04 64-bit
+#	For *Ubuntu 19.10 64-bit
 #
 #	Based on softman 1.0.1
 #
 #	Lead Author: Lee Hodson
 #
-#	This Release: 10th Aug 2018
+#	This Release: 11th Nov 2019
 #	First Written: 21st Jan. 2016
 #	First Release: 21st Jan. 2016
 #
 #	Website: https://github.com/VR51/Ubuntu-Runscript
 #	Donate: paypal.me/vr51
 #
-#	Copyright 2016-2018 Lee Hodson
+#	Copyright 2016 Lee Hodson
 #
 #	License: GPL3
 #
@@ -53,7 +52,7 @@ clear
 #		webcamstudio (web camera management)
 #		openshot-qt (screenshot tool)
 #		simplescreenrecorder (screen recorder)
-# 		virtualbox-5.2 (environment for virtual OS management)
+# 		virtualbox-6 (environment for virtual OS management)
 #		LyX (advanced text editor)
 #
 #	MAME:
@@ -65,10 +64,10 @@ clear
 #	SERVER
 #
 #		apache2
-#		php7.2
-#		php7.2-mysql (for MariaDB)
+#		php7.3
+#		php7.3-mysql (for MariaDB)
 #		+ other PHP7 modules
-#		mariadb-server 10.3
+#		mariadb-server 10.4
 #		phpmyadmin
 #		Webmin
 #		Mod_Pagespeed
@@ -76,21 +75,19 @@ clear
 #	You will need to configure Apache modules through either terminal or Webmin after installation has completed.
 #
 #	Functions in here: runscript_run runscript_prompt runscript_repos runscript_manual softman softman_message runscript_launch
-#
-#
 ###
 
-version='Runscript 18.04 64-bit'
+version='Runscript 19.10 64-bit'
 
 declare -ga what
 
 # NOTES: Full install size is around 12 GB. Takes approx. 1 hour to install into non-SSD VM.
 
-basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable brave opera-stable webcamstudio lyx virtualbox-5.2 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions apt-transport-https lsb-release )
+basicPackage=( software-properties-common y-ppa-manager vlc gimp krita google-chrome-stable brave opera-stable lyx virtualbox-6 dkms openshot-qt simplescreenrecorder gcc make perl python libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions apt-transport-https lsb-release )
 
 mamePackage=( mame mame-data qmc2-sdlmame qmc2-arcade qmc2-data qchdman )
 
-serverPackage=( apache2 php7.2 php7.2-common php7.2-mysql mariadb-server phpmyadmin openssl php7.2-bcmath php7.2-json php7.2-mbstring php7.2-xsl php7.2-bz2 php7.2-curl php7.2-enchant php7.2-gmp php7.2-imap php7.2-interbase php7.2-ldap php7.2-mcrypt php7.2-odbc php7.2-pspell php7.2-readline php7.2-recode php7.2-soap php7.2-tidy php7.2-zip php7.2-dba php7.2-gd php7.2-opcache php7.2-snmp php7.2-xml php7.2-cli php7.2-phpdbg php7.2-fpm )
+serverPackage=( apache2 php7.3 php7.3-common php7.3-mysql mariadb-server phpmyadmin openssl php7.3-bcmath php7.3-json php7.3-mbstring php7.3-xsl php7.3-bz2 php7.3-curl php7.3-enchant php7.3-gmp php7.3-imap php7.3-interbase php7.3-ldap php7.3-mcrypt php7.3-odbc php7.3-pspell php7.3-readline php7.3-recode php7.3-soap php7.3-tidy php7.3-zip php7.3-dba php7.3-gd php7.3-opcache php7.3-snmp php7.3-xml php7.3-cli php7.3-phpdbg php7.3-fpm )
 
 ## Receive script arguments and process them -- See 'run' at bottom of script
 
@@ -230,9 +227,7 @@ function runscript_prompt() {
 function runscript_repos() {
 
 	###
-	#
 	#	Install repositories and GPG keys
-	#
 	###
 
 	case $1 in
@@ -246,7 +241,7 @@ function runscript_repos() {
 
 		## VirtualBox
 
-		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian bionic contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+		sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian eoan contrib" >> /etc/apt/sources.list.d/virtualbox.list'
 		wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
 		wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
 
@@ -283,10 +278,6 @@ function runscript_repos() {
 
 		add-apt-repository ppa:openshot.developers/ppa
 
-		## Webcamstudio
-
-		add-apt-repository ppa:webcamstudio/webcamstudio-dailybuilds
-
 		## Simple Screen Recorder
 
 		add-apt-repository ppa:maarten-baert/simplescreenrecorder
@@ -316,15 +307,11 @@ function runscript_repos() {
 		apt-add-repository ppa:ondrej/php
 
 		apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-		sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.sax.uk.as61049.net/mariadb/repo/10.3/ubuntu bionic main'
-
-		sh -c 'echo "deb http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu bionic main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-bionic.list'
-		sh -c 'echo "deb-src http://ppa.launchpad.net/nijel/phpmyadmin/ubuntu bionic main" >> /etc/apt/sources.list.d/nijel-ubuntu-php-myadmin-bionic.list'
-
+		sudo add-apt-repository 'deb [arch=amd64] http://mirrors.coreix.net/mariadb/repo/10.4/ubuntu eoan main'
 
 		## PhpMyAdmin
 
-		apt-add-repository ppa:nijel/phpmyadmin
+		add-apt-repository ppa:phpmyadmin/ppa
 
 	;;
 	
@@ -364,11 +351,9 @@ function runscript_manual() {
 }
 
 
-###
-#
-# SOFTMAN
-#
-###
+##
+#	SOFTMAN
+##
 
 ## Run softman
 
@@ -526,11 +511,9 @@ function softman_message() {
 }
 
 
-###
-#
+##
 # SOFTMAN END
-#
-###
+##
 
 
 ## launch terminal
