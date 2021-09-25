@@ -1,6 +1,6 @@
 # Ubuntu-Runscript
 
-Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 18.04 Bionic release.
+Software collection installer for *ubuntu distros. Works with KDE Neon too. Runscript assumes it is being run in the 21.01 hirsute release.
 
 This is an interactive software installer that adds preconfigured sets of useful software packages to Ubuntu and Kubuntu distros, including KDE Neon.
 
@@ -19,7 +19,7 @@ This double opt-in prompt allows time to reconsider the first response or to cho
 - Interactive
 
 # Version
-Bionic. Released 10th Aug 2018
+Hirsute. Released 25th Sep 2021
 
 If using in a different release of Ubuntu you will need to change 'yakketti' in some of the repo lines in the code to whatever your Ubuntu release is.
 
@@ -50,7 +50,7 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 - webcamstudio (web camera controller)
 - openshot-qt (screenshot manager)
 - simplescreenrecorder (screen recorder)
-- virtualbox-5.2 (OS virtualiser)
+- virtualbox (OS virtualiser)
 - LyX (advanced text editor)
 
 ## MAME:
@@ -62,14 +62,16 @@ If using in a different release of Ubuntu you will need to change 'yakketti' in 
 ## SERVER
 
 - apache2
-- php7.2
-- php7.2-mysql + other standard PHP7 modules
-- mariadb-server 10.3
+- php7.4
+- php7.4-mysql + other standard PHP7 modules
+- php8*
+- mariadb-server 10.6
 - phpmyadmin
 - Webmin
 - Mod_Pagespeed
 
 # Notes
+
 After Webmin is installed you will need to set the user password:
 
 - sudo /usr/share/webmin/changepass.pl /etc/webmin root NEWPASSWORD
@@ -80,6 +82,7 @@ Brave is a privacy focused web browser. Go through the settings to increase your
 Opera is included because it has a built in VPN and other useful features.
 
 # History
+
 Runscript was written to facilitate the installation of web servers and the reinstallation of Kubuntu. The name comes from 'Run the script to install packages'.
 
 This started as a qickly written click-to-run script that had no prompts. The idea was to get the job done with as few questions as possible. Now we have prompts to confirm the changes to be made to an OS system.
